@@ -9,7 +9,11 @@
 
     <ul>
         {% for patient in patients %}
-            <li>{{ patient.first_name }} {{ patient.last_name }}</li>
+            <li>
+                {{ patient.first_name }} {{ patient.last_name }}
+                | <a href="/patients/edit/{{ patient.id }}/">Edit</a>
+                |<a href="/patients/delete/{{ patient.id }}/">Delete</a>
+            </li>
         {% empty %}
             <li>No patients available.</li>
         {% endfor %}
