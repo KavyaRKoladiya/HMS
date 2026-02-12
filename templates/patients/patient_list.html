@@ -5,6 +5,8 @@
 </head>
 <body>
     <h1>Patients</h1>
+    <a href="/patients/add/">Add New Patient</a>
+
     <ul>
         {% for patient in patients %}
             <li>{{ patient.first_name }} {{ patient.last_name }}</li>
