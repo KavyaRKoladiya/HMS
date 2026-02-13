@@ -1,22 +1,19 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Patient List</title>
-</head>
-<body>
-    <h1>Patients</h1>
-    <a href="/patients/add/">Add New Patient</a>
+{% extends 'base.html' %}
 
-    <ul>
-        {% for patient in patients %}
-            <li>
-                {{ patient.first_name }} {{ patient.last_name }}
-                | <a href="/patients/edit/{{ patient.id }}/">Edit</a>
-                |<a href="/patients/delete/{{ patient.id }}/">Delete</a>
-            </li>
-        {% empty %}
-            <li>No patients available.</li>
-        {% endfor %}
-    </ul>
-</body>
-</html>
+{% block content %}
+<h1>Patients</h1>
+
+<a href="/patients/add/">Add New Patient</a>
+
+<ul>
+    {% for patient in patients %}
+        <li>
+            {{ patient.first_name }} {{ patient.last_name }}
+            | <a href="/patients/edit/{{ patient.id }}/">Edit</a>
+            | <a href="/patients/delete/{{ patient.id }}/">Delete</a>
+        </li>
+    {% empty %}
+        <li>No patients available.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

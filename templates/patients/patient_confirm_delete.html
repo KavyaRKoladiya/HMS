@@ -1,16 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Delete Patient</title>
-</head>
-<body>
-    <h2>Are you sure you want to delete {{ patient.first_name }}?</h2>
+{% extends 'base.html' %}
 
-    <form method="POST">
-        {% csrf_token %}
-        <button type="submit">Yes, Delete</button>
-    </form>
+{% block content %}
+<h2>Are you sure you want to delete {{ patient.first_name }}?</h2>
 
-    <a href="/patients/">Cancel</a>
-</body>
-</html>
+<form method="POST">
+    {% csrf_token %}
+    <button type="submit">Yes, Delete</button>
+</form>
+
+<a href="/patients/">Cancel</a>
+{% endblock %}

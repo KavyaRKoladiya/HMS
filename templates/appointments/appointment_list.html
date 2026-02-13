@@ -1,3 +1,6 @@
+{% extends 'base.html' %}
+
+{% block content %}
 <h1>Appointments</h1>
 
 <a href="/appointments/add/">Add Appointment</a>
@@ -14,3 +17,4 @@
         <li>No appointments available.</li>
     {% endfor %}
 </ul>
+{% endblock %}

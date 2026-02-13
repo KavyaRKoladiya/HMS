@@ -1,3 +1,6 @@
+{% extends 'base.html' %}
+
+{% block content %}
 <h1>Doctors</h1>
 
 <a href="/doctors/add/">Add New Doctor</a>
@@ -5,7 +8,7 @@
 <ul>
     {% for doctor in doctors %}
         <li>
-            Dr. {{ doctor.first_name }} {{ doctor.last_name }}
+            Dr. {{ doctor.first_name }} {{ doctor.last_name }} ({{ doctor.specialization }})
             | <a href="/doctors/edit/{{ doctor.id }}/">Edit</a>
             | <a href="/doctors/delete/{{ doctor.id }}/">Delete</a>
         </li>
@@ -13,3 +16,4 @@
         <li>No doctors available.</li>
     {% endfor %}
 </ul>
+{% endblock %}
