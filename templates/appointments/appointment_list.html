@@ -1,0 +1,16 @@
+<h1>Appointments</h1>
+
+<a href="/appointments/add/">Add Appointment</a>
+
+<ul>
+    {% for appointment in appointments %}
+        <li>
+            {{ appointment.patient }} with {{ appointment.doctor }}
+            on {{ appointment.appointment_date }}
+            | <a href="/appointments/edit/{{ appointment.id }}/">Edit</a>
+            | <a href="/appointments/delete/{{ appointment.id }}/">Delete</a>
+        </li>
+    {% empty %}
+        <li>No appointments available.</li>
+    {% endfor %}
+</ul>
