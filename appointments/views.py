@@ -5,8 +5,22 @@ from .forms import AppointmentForm
 
 @login_required
 def appointment_list(request):
-    appointments = Appointment.objects.all()
-    return render(request, 'appointments/appointment_list.html', {'appointments': appointments})
+    doctor_id = request.GET.get('doctor')
+
+    if doctor_id:
+        appointments = Appointment.objects.filter(doctor_id=doctor_id)
+    else:
+        appointments = Appointment.objects.all()
+
+    from doctors.models import Doctor
+    doctors = Doctor.objects.all()
+
+    context = {
+        'appointments': appointments,
+        'doctors': doctors,
+    }
+
+    return render(request, 'appointments/appointment_list.html', context)
 
 @login_required
 def appointment_create(request):

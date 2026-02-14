@@ -6,7 +6,14 @@ from .forms import PatientForm
 
 @login_required
 def patient_list(request):
-    patients = Patient.objects.all()
+    query = request.GET.get('q')
+
+    if query:
+        patients = Patient.objects.filter(first_name__icontains=query) | \
+                   Patient.objects.filter(last_name__icontains=query)
+    else:
+        patients = Patient.objects.all()
+
     return render(request, 'patients/patient_list.html', {'patients': patients})
 
 @login_required

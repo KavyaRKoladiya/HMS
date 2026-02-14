@@ -2,6 +2,17 @@
 
 {% block content %}
 <h1>Appointments</h1>
+<form method="GET" class="mb-3">
+    <select name="doctor" class="form-select" onchange="this.form.submit()">
+        <option value="">Filter by Doctor</option>
+        {% for doctor in doctors %}
+            <option value="{{ doctor.id }}">
+                Dr. {{ doctor.first_name }} {{ doctor.last_name }}
+            </option>
+        {% endfor %}
+    </select>
+</form>
+
 
 <a href="/appointments/add/">Add Appointment</a>
 
