@@ -19,13 +19,15 @@ from django.contrib import admin
 from django.urls import path, include
 from .views import home, CustomLoginView, custom_logout
 from django.contrib.auth.decorators import login_required
+from .views import home, CustomLoginView, custom_logout, dashboard
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', CustomLoginView.as_view(), name='login'),
     path('logout/', custom_logout, name='logout'),
     
-    path('', home, name='home'),
+    path('', dashboard, name='dashboard'),
     path('patients/', include('patients.urls')),
     path('doctors/', include('doctors.urls')),
     path('appointments/', include('appointments.urls')),
