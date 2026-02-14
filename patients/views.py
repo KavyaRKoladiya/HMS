@@ -1,13 +1,15 @@
+from django.contrib.auth.decorators import login_required
 
 from django.shortcuts import render, redirect
 from .models import Patient
 from .forms import PatientForm
 
+@login_required
 def patient_list(request):
     patients = Patient.objects.all()
     return render(request, 'patients/patient_list.html', {'patients': patients})
 
-
+@login_required
 def patient_create(request):
     if request.method == 'POST':
         form = PatientForm(request.POST)
@@ -19,6 +21,7 @@ def patient_create(request):
 
     return render(request, 'patients/patient_form.html', {'form': form})
 
+@login_required
 def patient_update(request, pk):
     patient = Patient.objects.get(id=pk)
 
@@ -32,7 +35,7 @@ def patient_update(request, pk):
 
     return render(request, 'patients/patient_form.html', {'form': form})
 
-
+@login_required
 def patient_delete(request, pk):
     patient = Patient.objects.get(id=pk)
 

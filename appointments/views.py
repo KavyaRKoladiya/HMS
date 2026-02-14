@@ -1,13 +1,14 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from .models import Appointment
 from .forms import AppointmentForm
 
-
+@login_required
 def appointment_list(request):
     appointments = Appointment.objects.all()
     return render(request, 'appointments/appointment_list.html', {'appointments': appointments})
 
-
+@login_required
 def appointment_create(request):
     if request.method == 'POST':
         form = AppointmentForm(request.POST)
@@ -19,7 +20,7 @@ def appointment_create(request):
 
     return render(request, 'appointments/appointment_form.html', {'form': form})
 
-
+@login_required
 def appointment_update(request, pk):
     appointment = Appointment.objects.get(id=pk)
 
@@ -33,7 +34,7 @@ def appointment_update(request, pk):
 
     return render(request, 'appointments/appointment_form.html', {'form': form})
 
-
+@login_required
 def appointment_delete(request, pk):
     appointment = Appointment.objects.get(id=pk)
 
