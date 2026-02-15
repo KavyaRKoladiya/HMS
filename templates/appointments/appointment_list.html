@@ -2,6 +2,8 @@
 
 {% block content %}
 <h1>Appointments</h1>
+
+<!-- Filter Dropdown -->
 <form method="GET" class="mb-3">
     <select name="doctor" class="form-select" onchange="this.form.submit()">
         <option value="">Filter by Doctor</option>
@@ -13,19 +15,32 @@
     </select>
 </form>
 
+<hr>
 
-<a href="/appointments/add/">Add Appointment</a>
-
+<h3>Upcoming Appointments</h3>
 <ul>
-    {% for appointment in appointments %}
+    {% for appointment in upcoming_appointments %}
         <li>
             {{ appointment.patient }} with {{ appointment.doctor }}
             on {{ appointment.appointment_date }}
-            | <a href="/appointments/edit/{{ appointment.id }}/">Edit</a>
-            | <a href="/appointments/delete/{{ appointment.id }}/">Delete</a>
         </li>
     {% empty %}
-        <li>No appointments available.</li>
+        <li>No upcoming appointments.</li>
     {% endfor %}
 </ul>
+
+<hr>
+
+<h3>Past Appointments</h3>
+<ul>
+    {% for appointment in past_appointments %}
+        <li>
+            {{ appointment.patient }} with {{ appointment.doctor }}
+            on {{ appointment.appointment_date }}
+        </li>
+    {% empty %}
+        <li>No past appointments.</li>
+    {% endfor %}
+</ul>
+
 {% endblock %}

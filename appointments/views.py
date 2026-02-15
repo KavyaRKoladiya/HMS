@@ -1,24 +1,30 @@
 from django.contrib.auth.decorators import login_required
 from hms.decorators import role_required
+
 from django.shortcuts import render, redirect
 from .models import Appointment
 from .forms import AppointmentForm
+from django.utils import timezone
 
 @login_required
 @role_required(['Admin', 'Receptionist', 'Doctor'])
 def appointment_list(request):
-    doctor_id = request.GET.get('doctor')
+    now = timezone.now()
 
-    if doctor_id:
-        appointments = Appointment.objects.filter(doctor_id=doctor_id)
-    else:
-        appointments = Appointment.objects.all()
+    upcoming_appointments = Appointment.objects.filter(
+        appointment_date__gte=now
+    ).order_by('appointment_date')
+
+    past_appointments = Appointment.objects.filter(
+        appointment_date__lt=now
+    ).order_by('-appointment_date')
 
     from doctors.models import Doctor
     doctors = Doctor.objects.all()
 
     context = {
-        'appointments': appointments,
+        'upcoming_appointments': upcoming_appointments,
+        'past_appointments': past_appointments,
         'doctors': doctors,
     }
 
