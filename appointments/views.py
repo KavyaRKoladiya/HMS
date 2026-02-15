@@ -1,9 +1,11 @@
 from django.contrib.auth.decorators import login_required
+from hms.decorators import role_required
 from django.shortcuts import render, redirect
 from .models import Appointment
 from .forms import AppointmentForm
 
 @login_required
+@role_required(['Admin', 'Receptionist', 'Doctor'])
 def appointment_list(request):
     doctor_id = request.GET.get('doctor')
 
@@ -23,6 +25,7 @@ def appointment_list(request):
     return render(request, 'appointments/appointment_list.html', context)
 
 @login_required
+@role_required(['Admin', 'Receptionist'])
 def appointment_create(request):
     if request.method == 'POST':
         form = AppointmentForm(request.POST)
@@ -35,6 +38,7 @@ def appointment_create(request):
     return render(request, 'appointments/appointment_form.html', {'form': form})
 
 @login_required
+@role_required(['Admin', 'Receptionist'])
 def appointment_update(request, pk):
     appointment = Appointment.objects.get(id=pk)
 
@@ -49,6 +53,7 @@ def appointment_update(request, pk):
     return render(request, 'appointments/appointment_form.html', {'form': form})
 
 @login_required
+@role_required(['Admin', 'Receptionist'])
 def appointment_delete(request, pk):
     appointment = Appointment.objects.get(id=pk)
 

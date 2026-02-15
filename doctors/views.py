@@ -1,14 +1,17 @@
 from django.contrib.auth.decorators import login_required
+from hms.decorators import role_required
 from django.shortcuts import render, redirect
 from .models import Doctor
 from .forms import DoctorForm
 
 @login_required
+@role_required(['Admin', 'Receptionist', 'Doctor'])
 def doctor_list(request):
     doctors = Doctor.objects.all()
     return render(request, 'doctors/doctor_list.html', {'doctors': doctors})
 
 @login_required
+@role_required(['Admin'])
 def doctor_create(request):
     if request.method == 'POST':
         form = DoctorForm(request.POST)
@@ -21,6 +24,7 @@ def doctor_create(request):
     return render(request, 'doctors/doctor_form.html', {'form': form})
 
 @login_required
+@role_required(['Admin'])
 def doctor_update(request, pk):
     doctor = Doctor.objects.get(id=pk)
 
@@ -35,6 +39,7 @@ def doctor_update(request, pk):
     return render(request, 'doctors/doctor_form.html', {'form': form})
 
 @login_required
+@role_required(['Admin'])
 def doctor_delete(request, pk):
     doctor = Doctor.objects.get(id=pk)
 
