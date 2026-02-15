@@ -5,17 +5,26 @@ from django.shortcuts import render, redirect
 from .models import Appointment
 from .forms import AppointmentForm
 from django.utils import timezone
+from django.db.models import Q
 
 @login_required
 @role_required(['Admin', 'Receptionist', 'Doctor'])
 def appointment_list(request):
     now = timezone.now()
+    doctor_id = request.GET.get('doctor')
 
-    upcoming_appointments = Appointment.objects.filter(
+    appointments = Appointment.objects.all()
+
+    # Apply doctor filter if selected
+    if doctor_id:
+        appointments = appointments.filter(doctor_id=doctor_id)
+
+    # Split into upcoming & past AFTER filtering
+    upcoming_appointments = appointments.filter(
         appointment_date__gte=now
     ).order_by('appointment_date')
 
-    past_appointments = Appointment.objects.filter(
+    past_appointments = appointments.filter(
         appointment_date__lt=now
     ).order_by('-appointment_date')
 
