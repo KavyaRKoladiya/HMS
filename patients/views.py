@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from hms.decorators import role_required
 
@@ -8,15 +9,25 @@ from .forms import PatientForm
 @login_required
 @role_required(['Admin', 'Receptionist', 'Doctor'])
 def patient_list(request):
-    query = request.GET.get('q')
+    query = request.GET.get('q', '').strip()
+
+    patients = Patient.objects.all()
 
     if query:
-        patients = Patient.objects.filter(first_name__icontains=query) | \
-                   Patient.objects.filter(last_name__icontains=query)
-    else:
-        patients = Patient.objects.all()
+        patients = patients.filter(
+            Q(first_name__istartswith=query) |
+            Q(last_name__istartswith=query)
+        )
 
-    return render(request, 'patients/patient_list.html', {'patients': patients})
+    # 🔍 Debug lines (temporary)
+    print("QUERY:", query)
+    print("COUNT:", patients.count())
+
+    context = {
+        'patients': patients
+    }
+
+    return render(request, 'patients/patient_list.html', context)
 
 @login_required
 @role_required(['Admin', 'Receptionist'])
