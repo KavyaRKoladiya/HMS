@@ -7,7 +7,13 @@ from django.contrib.auth.decorators import login_required
 
 
 def home(request):
-    return render(request, 'home.html')
+    doctors = Doctor.objects.all()
+
+    context = {
+        'doctors': doctors
+    }
+
+    return render(request, 'public_home.html', context)
 
 from django.contrib.auth.views import LoginView
 from django.contrib.auth import logout

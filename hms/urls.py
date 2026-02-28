@@ -24,10 +24,18 @@ from .views import home, CustomLoginView, custom_logout, dashboard
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+    # Public
+    path('', home, name='home'),
+
+    # Authentication
     path('login/', CustomLoginView.as_view(), name='login'),
     path('logout/', custom_logout, name='logout'),
-    
-    path('', dashboard, name='dashboard'),
+
+    # Internal dashboard
+    path('dashboard/', dashboard, name='dashboard'),
+
+    # Apps
     path('patients/', include('patients.urls')),
     path('doctors/', include('doctors.urls')),
     path('appointments/', include('appointments.urls')),
