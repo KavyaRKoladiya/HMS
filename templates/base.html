@@ -31,6 +31,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#about">About Us</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'doctor_register' %}">Doctor Register</a>
+                    </li>
                 {% endif %}
 
                 {% if user.is_authenticated %}
@@ -45,6 +48,10 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/appointments/">Appointments</a>
+                    </li>
+                    <!-- doctors will see this link, access control is handled by view decorator -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="/doctors/history/">My History</a>
                     </li>
                     {% if user.is_authenticated and user.is_superuser %}
                         <a class="nav-link" href="/admin/">Admin</a>

@@ -19,9 +19,9 @@ def patient_list(request):
             Q(last_name__istartswith=query)
         )
 
-    # 🔍 Debug lines (temporary)
-    print("QUERY:", query)
-    print("COUNT:", patients.count())
+    # Debug lines (temporary)
+    # print("QUERY:", query)
+    # print("COUNT:", patients.count())
 
     context = {
         'patients': patients

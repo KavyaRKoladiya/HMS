@@ -10,6 +10,14 @@ A Django-based web application for managing hospital operations including patien
 - **User Authentication**: Secure login/logout functionality with dashboard access
 - **Admin Interface**: Django admin panel for administrative tasks
 - **Data Validation**: Prevents double-booking for both patients and doctors
+- **Doctor History**: Doctors can view past appointments with patients including reason and date/time, and upload related documents (reports, prescriptions) per appointment
+- **Doctor Registration**: After an administrator adds a doctor record, the doctor can visit the registration page, enter the same email address, and choose a password. The system links the account to the existing doctor record (or reuses an existing user if one exists), assigns the doctor role, and allows login for viewing history.
+
+**Registration flow:**
+ 1. Admin adds doctor via `/doctors/add/` (includes email field).
+ 2. Doctor navigates to `/doctors/register/` (also linked from login page).
+ 3. Enter email and password; the form validates that the email matches an unlinked doctor record.
+ 4. After successful registration, log in with new credentials to access `/doctors/history/`.
 
 ## Project Structure
 

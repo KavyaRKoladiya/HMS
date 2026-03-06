@@ -21,6 +21,10 @@ from .views import home, CustomLoginView, custom_logout
 from django.contrib.auth.decorators import login_required
 from .views import home, CustomLoginView, custom_logout, dashboard
 
+# media support for development
+from django.conf import settings
+from django.conf.urls.static import static
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -40,3 +44,7 @@ urlpatterns = [
     path('doctors/', include('doctors.urls')),
     path('appointments/', include('appointments.urls')),
 ]
+
+# serve media when DEBUG=True
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

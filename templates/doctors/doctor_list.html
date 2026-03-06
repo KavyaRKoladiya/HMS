@@ -5,15 +5,31 @@
 
 <a class="btn btn-primary mb-3" href="/doctors/add/">Add New Doctor</a>
 
-<ul>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Specialization</th>
+            <th>Email</th>
+            <th>Registered</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
     {% for doctor in doctors %}
-        <li>
-            Dr. {{ doctor.first_name }} {{ doctor.last_name }} ({{ doctor.specialization }})
-            | <a href="/doctors/edit/{{ doctor.id }}/">Edit</a>
-            | <a href="/doctors/delete/{{ doctor.id }}/">Delete</a>
-        </li>
+        <tr>
+            <td>Dr. {{ doctor.first_name }} {{ doctor.last_name }}</td>
+            <td>{{ doctor.specialization }}</td>
+            <td>{{ doctor.email }}</td>
+            <td>{% if doctor.user %}Yes{% else %}No{% endif %}</td>
+            <td>
+                <a href="/doctors/edit/{{ doctor.id }}/">Edit</a>
+                | <a href="/doctors/delete/{{ doctor.id }}/">Delete</a>
+            </td>
+        </tr>
     {% empty %}
-        <li>No doctors available.</li>
+        <tr><td colspan="5">No doctors available.</td></tr>
     {% endfor %}
-</ul>
+    </tbody>
+</table>
 {% endblock %}

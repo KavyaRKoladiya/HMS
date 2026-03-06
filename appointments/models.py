@@ -39,3 +39,24 @@ class Appointment(models.Model):
 
     def __str__(self):
         return f"Appointment - {self.patient} with {self.doctor}"
+
+
+class AppointmentDocument(models.Model):
+    appointment = models.ForeignKey(
+        Appointment,
+        on_delete=models.CASCADE,
+        related_name='documents'
+    )
+    uploaded_by = models.ForeignKey(
+        'doctors.Doctor',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        help_text="Doctor who uploaded this document"
+    )
+    file = models.FileField(upload_to='documents/')
+    description = models.CharField(max_length=255, blank=True)
+    upload_date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Document for {self.appointment} ({self.upload_date:%Y-%m-%d})"

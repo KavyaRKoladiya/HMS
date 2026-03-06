@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>History for {{ doctor }}</h1>
+
+{% if past_appointments %}
+<table class="table">
+    <thead>
+        <tr>
+            <th>Patient</th>
+            <th>Reason</th>
+            <th>Date / Time</th>
+            <th>Documents</th>
+            <th>Upload</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for appt in past_appointments %}
+        <tr>
+            <td>{{ appt.patient }}</td>
+            <td>{{ appt.reason }}</td>
+            <td>{{ appt.appointment_date }}</td>
+            <td>
+                {% for doc in appt.documents.all %}
+                    <a href="{{ doc.file.url }}" target="_blank">{{ doc.description|default:doc.file.name }}</a><br/>
+                {% empty %}
+                    <em>No documents</em>
+                {% endfor %}
+            </td>
+            <td>
+                <form method="post" enctype="multipart/form-data" style="display:inline-block;">
+                    {% csrf_token %}
+                    {{ upload_form.file }}<br/>
+                    {{ upload_form.description }}
+                    <input type="hidden" name="appointment_id" value="{{ appt.id }}" />
+                    <button class="btn btn-sm btn-primary" type="submit">Upload</button>
+                </form>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}
+    <p>No past appointments found.</p>
+{% endif %}
+
+{% endblock %}

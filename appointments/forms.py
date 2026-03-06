@@ -1,5 +1,5 @@
 from django import forms
-from .models import Appointment
+from .models import Appointment, AppointmentDocument
 from django.utils import timezone
 
 class AppointmentForm(forms.ModelForm):
@@ -17,3 +17,13 @@ class AppointmentForm(forms.ModelForm):
                 raise forms.ValidationError("You cannot create an appointment in the past.")
 
             return appointment_date
+
+
+class AppointmentDocumentForm(forms.ModelForm):
+    class Meta:
+        from .models import AppointmentDocument
+        model = AppointmentDocument
+        fields = ['file', 'description']
+        widgets = {
+            'description': forms.TextInput(attrs={'placeholder': 'Optional description'})
+        }
