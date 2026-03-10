@@ -109,6 +109,13 @@ class DoctorRegistrationForm(BootstrapFormMixin, UserCreationForm):
         doctor = Doctor.objects.get(email__iexact=email)
         doctor.user = user
         doctor.save()
+        # copy doctor name into user so __str__ and authentication work nicely
+        user.first_name = doctor.first_name
+        user.last_name = doctor.last_name
+        user.email = email
+        if commit:
+            user.save()
+
         # ensure doctor group membership
         group, _ = Group.objects.get_or_create(name='Doctor')
         user.groups.add(group)

@@ -22,8 +22,13 @@ class Doctor(models.Model):
     email = models.EmailField()
 
     def __str__(self):
+        # prefer the user's full name when available, but fall back to the
+        # stored first/last name if the user record doesn't have those fields
         if self.user:
-            return f"Dr. {self.user.get_full_name()}"
+            full = self.user.get_full_name().strip()
+            if full:
+                return f"Dr. {full}"
+        # user is missing or has no name; use the doctor model fields
         return f"Dr. {self.first_name} {self.last_name}"
 
 

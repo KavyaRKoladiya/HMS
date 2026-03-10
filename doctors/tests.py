@@ -62,6 +62,9 @@ class DoctorHistoryTests(TestCase):
         # check doctor profile linked
         doc.refresh_from_db()
         self.assertIsNotNone(doc.user)
+        # newly created user should have first/last name copied
+        self.assertEqual(doc.user.first_name, 'Alice')
+        self.assertEqual(doc.user.last_name, 'Wonder')
         # newly created user should be in Doctor group
         self.assertTrue(doc.user.groups.filter(name='Doctor').exists())
 
@@ -93,6 +96,20 @@ class DoctorHistoryTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Checkup')
         self.assertContains(response, 'Jane Smith')
+
+    def test_string_representation_uses_model_name_when_user_missing(self):
+        # doctor with user but the user has no first/last; __str__ should fallback
+        user = User.objects.create_user(username='nopname', password='x')
+        doc = Doctor.objects.create(
+            user=user,
+            first_name='Empty',
+            last_name='Name',
+            specialization='Test',
+            phone='123',
+            email='empty@example.com'
+        )
+        # user has blank full name by default
+        self.assertEqual(str(doc), 'Dr. Empty Name')
 
     def test_upload_document_creates_record(self):
         self.client.login(username='doc1', password='pass')
