@@ -3,7 +3,7 @@
 {% block content %}
 <h2>Doctor Registration</h2>
 <p>If you have been added by the administrator, register here using your email address.</p>
-<form method="post">
+<form method="post" class="needs-validation">
     {% csrf_token %}
     {{ form.as_p }}
     <button class="btn btn-primary" type="submit">Register</button>

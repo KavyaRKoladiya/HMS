@@ -3,7 +3,15 @@ from django.db.models import Q
 from .models import Patient
 
 
-class PatientForm(forms.ModelForm):
+class BootstrapFormMixin:
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            existing = field.widget.attrs.get('class', '')
+            field.widget.attrs['class'] = (existing + ' form-control').strip()
+
+
+class PatientForm(BootstrapFormMixin, forms.ModelForm):
     class Meta:
         model = Patient
         fields = ['first_name', 'last_name', 'date_of_birth', 'gender', 'phone', 'address']

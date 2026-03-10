@@ -5,7 +5,7 @@
 
 <a class="btn btn-primary mb-3" href="/doctors/add/">Add New Doctor</a>
 
-<table class="table">
+<table class="table table-striped table-hover">
     <thead>
         <tr>
             <th>Name</th>
@@ -23,8 +23,8 @@
             <td>{{ doctor.email }}</td>
             <td>{% if doctor.user %}Yes{% else %}No{% endif %}</td>
             <td>
-                <a href="/doctors/edit/{{ doctor.id }}/">Edit</a>
-                | <a href="/doctors/delete/{{ doctor.id }}/">Delete</a>
+                <a class="btn btn-sm btn-outline-secondary" href="/doctors/edit/{{ doctor.id }}/">Edit</a>
+                <a class="btn btn-sm btn-outline-danger" href="/doctors/delete/{{ doctor.id }}/">Delete</a>
             </td>
         </tr>
     {% empty %}

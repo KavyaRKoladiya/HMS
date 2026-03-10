@@ -120,6 +120,9 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+# include project-level static directory so our custom css can be served in development
+STATICFILES_DIRS = [BASE_DIR / 'static']
+
 # media files (uploads)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'

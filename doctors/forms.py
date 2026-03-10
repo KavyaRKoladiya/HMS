@@ -5,7 +5,16 @@ from django.contrib.auth.models import User, Group
 from .models import Doctor
 
 
-class DoctorForm(forms.ModelForm):
+# mixin to automatically apply Bootstrap form-control classes
+class BootstrapFormMixin:
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            existing = field.widget.attrs.get('class', '')
+            field.widget.attrs['class'] = (existing + ' form-control').strip()
+
+
+class DoctorForm(BootstrapFormMixin, forms.ModelForm):
     class Meta:
         model = Doctor
         fields = ['first_name', 'last_name', 'specialization', 'phone', 'email']
@@ -39,7 +48,7 @@ class DoctorForm(forms.ModelForm):
         return cleaned
 
 
-class DoctorRegistrationForm(UserCreationForm):
+class DoctorRegistrationForm(BootstrapFormMixin, UserCreationForm):
     email = forms.EmailField(label="Email")
 
     class Meta:

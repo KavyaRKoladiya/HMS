@@ -20,36 +20,32 @@
 <hr>
 
 <h3>Upcoming Appointments</h3>
-<ul>
+<ul class="list-group mb-4">
     {% for appointment in upcoming_appointments %}
-        <li>
-            {{ appointment.patient }} with {{ appointment.doctor }}
-            on {{ appointment.appointment_date }}
-            |
-            <a href="/appointments/edit/{{ appointment.id }}/">Edit</a>
-            |
-            <a href="/appointments/delete/{{ appointment.id }}/">Delete</a>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            {{ appointment.patient }} with {{ appointment.doctor }} on {{ appointment.appointment_date }}
+            <span>
+                <a href="/appointments/edit/{{ appointment.id }}/" class="btn btn-sm btn-outline-secondary">Edit</a>
+                <a href="/appointments/delete/{{ appointment.id }}/" class="btn btn-sm btn-outline-danger">Delete</a>
+            </span>
         </li>
     {% empty %}
-        <li>No upcoming appointments.</li>
+        <li class="list-group-item">No upcoming appointments.</li>
     {% endfor %}
 </ul>
 
-<hr>
-
 <h3>Past Appointments</h3>
-<ul>
+<ul class="list-group">
     {% for appointment in past_appointments %}
-        <li>
-            {{ appointment.patient }} with {{ appointment.doctor }}
-            on {{ appointment.appointment_date }}
-            |
-            <a href="/appointments/edit/{{ appointment.id }}/">Edit</a>
-            |
-            <a href="/appointments/delete/{{ appointment.id }}/">Delete</a>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            {{ appointment.patient }} with {{ appointment.doctor }} on {{ appointment.appointment_date }}
+            <span>
+                <a href="/appointments/edit/{{ appointment.id }}/" class="btn btn-sm btn-outline-secondary">Edit</a>
+                <a href="/appointments/delete/{{ appointment.id }}/" class="btn btn-sm btn-outline-danger">Delete</a>
+            </span>
         </li>
     {% empty %}
-        <li>No past appointments.</li>
+        <li class="list-group-item">No past appointments.</li>
     {% endfor %}
 </ul>
 

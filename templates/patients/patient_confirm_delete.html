@@ -5,8 +5,7 @@
 
 <form method="POST">
     {% csrf_token %}
-    <button type="submit">Yes, Delete</button>
+    <button type="submit" class="btn btn-danger">Yes, Delete</button>
+    <a href="/patients/" class="btn btn-secondary ms-2">Cancel</a>
 </form>
-
-<a href="/patients/">Cancel</a>
 {% endblock %}

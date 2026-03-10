@@ -2,7 +2,15 @@ from django import forms
 from .models import Appointment, AppointmentDocument
 from django.utils import timezone
 
-class AppointmentForm(forms.ModelForm):
+
+class BootstrapFormMixin:
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            existing = field.widget.attrs.get('class', '')
+            field.widget.attrs['class'] = (existing + ' form-control').strip()
+
+class AppointmentForm(BootstrapFormMixin, forms.ModelForm):
     class Meta:
         model = Appointment
         fields = ['patient', 'doctor', 'appointment_date', 'reason']
@@ -19,7 +27,7 @@ class AppointmentForm(forms.ModelForm):
             return appointment_date
 
 
-class AppointmentDocumentForm(forms.ModelForm):
+class AppointmentDocumentForm(BootstrapFormMixin, forms.ModelForm):
     class Meta:
         from .models import AppointmentDocument
         model = AppointmentDocument

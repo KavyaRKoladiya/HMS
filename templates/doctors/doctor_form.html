@@ -3,11 +3,10 @@
 {% block content %}
 <h1>Doctor Form</h1>
 
-<form method="POST">
+<form method="POST" class="needs-validation">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Save</button>
+    <button type="submit" class="btn btn-success">Save</button>
+    <a href="/doctors/" class="btn btn-secondary ms-2">Back to List</a>
 </form>
-
-<a href="/doctors/">Back to List</a>
 {% endblock %}

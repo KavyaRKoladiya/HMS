@@ -1,0 +1,56 @@
+/* Custom HMS styles */
+
+body {
+    background-color: #f0f2f5;
+    color: #343a40;
+}
+
+.container {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 0 15px rgba(0,0,0,0.05);
+}
+
+.navbar-brand {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1.5rem;
+}
+
+footer {
+    margin-top: 2rem;
+    padding: 1rem 0;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+h1,h2,h3,h4,h5 {
+    color: #212529;
+}
+
+.btn {
+    min-width: 100px;
+}
+
+.table thead th {
+    background-color: #e9ecef;
+}
+
+.list-group-item {
+    border: none;
+}
+
+.list-group-item:nth-child(odd) {
+    background-color: #f8f9fa;
+}
+
+.alert-custom {
+    background-color: #e2f0d9;
+    border-color: #a5d6a7;
+    color: #2e7d32;
+}
+
+.form-control:focus {
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
